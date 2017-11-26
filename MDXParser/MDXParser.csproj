@@ -70,7 +70,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AlphaLib\MDXLib.csproj">
+    <ProjectReference Include="..\MDXLib\MDXLib.csproj">
       <Project>{1d4ddf23-874f-4f07-b82f-60d46a9c36b4}</Project>
       <Name>MDXLib</Name>
     </ProjectReference>

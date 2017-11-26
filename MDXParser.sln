@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDXParser", "MDXParser\MDXParser.csproj", "{56353CA9-70B3-4D0E-A92B-2A0891E50B88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDXLib", "AlphaLib\MDXLib.csproj", "{1D4DDF23-874F-4F07-B82F-60D46A9C36B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDXLib", "MDXLib\MDXLib.csproj", "{1D4DDF23-874F-4F07-B82F-60D46A9C36B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
