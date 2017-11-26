@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1D4DDF23-874F-4F07-B82F-60D46A9C36B4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MDXLib</RootNamespace>
+    <AssemblyName>AlphaLib</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="M2Lib">
+      <HintPath>..\MDXParser\bin\Debug\M2Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="MDX\ATCH.cs" />
+    <Compile Include="MDX\BaseChunk.cs" />
+    <Compile Include="MDX\BONE.cs" />
+    <Compile Include="MDX\CAMS.cs" />
+    <Compile Include="MDX\CLID.cs" />
+    <Compile Include="MDX\GenObject.cs" />
+    <Compile Include="MDX\EVTS.cs" />
+    <Compile Include="MDX\GEOA.cs" />
+    <Compile Include="MDX\GEOS.cs" />
+    <Compile Include="MDX\GLBS.cs" />
+    <Compile Include="MDX\HELP.cs" />
+    <Compile Include="MDX\HTST.cs" />
+    <Compile Include="MDX\LITE.cs" />
+    <Compile Include="MDX\Model.cs" />
+    <Compile Include="MDX\MODL.cs" />
+    <Compile Include="MDX\MTLS.cs" />
+    <Compile Include="MDX\PIVT.cs" />
+    <Compile Include="MDX\PRE2.cs" />
+    <Compile Include="MDX\RIBB.cs" />
+    <Compile Include="MDX\SEQS.cs" />
+    <Compile Include="MDX\SimpleTrack.cs" />
+    <Compile Include="MDX\TEXS.cs" />
+    <Compile Include="MDX\Track.cs" />
+    <Compile Include="MDX\TXAN.cs" />
+    <Compile Include="MDX\VERS.cs" />
+    <Compile Include="Structs\CBox.cs" />
+    <Compile Include="Structs\CCylinder.cs" />
+    <Compile Include="Structs\CExtent.cs" />
+    <Compile Include="Structs\CImVector.cs" />
+    <Compile Include="Structs\CInterval.cs" />
+    <Compile Include="Structs\CPlane.cs" />
+    <Compile Include="Structs\CSegment.cs" />
+    <Compile Include="Structs\CSphere.cs" />
+    <Compile Include="Structs\CVector2.cs" />
+    <Compile Include="Structs\CVector3.cs" />
+    <Compile Include="Structs\CVector4.cs" />
+    <Compile Include="Structs\CVertex.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

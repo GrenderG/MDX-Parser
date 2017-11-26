@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDXParser", "MDXParser\MDXParser.csproj", "{56353CA9-70B3-4D0E-A92B-2A0891E50B88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDXLib", "AlphaLib\MDXLib.csproj", "{1D4DDF23-874F-4F07-B82F-60D46A9C36B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56353CA9-70B3-4D0E-A92B-2A0891E50B88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56353CA9-70B3-4D0E-A92B-2A0891E50B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56353CA9-70B3-4D0E-A92B-2A0891E50B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56353CA9-70B3-4D0E-A92B-2A0891E50B88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D4DDF23-874F-4F07-B82F-60D46A9C36B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D4DDF23-874F-4F07-B82F-60D46A9C36B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D4DDF23-874F-4F07-B82F-60D46A9C36B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D4DDF23-874F-4F07-B82F-60D46A9C36B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC62B862-3415-4752-BF32-AE29F8F5847F}
+	EndGlobalSection
+EndGlobal
