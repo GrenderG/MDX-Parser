@@ -12,8 +12,8 @@ namespace MDXLib.MDX
     {
         ParticleEmitter2[] ParticleEmitter2s;
 
-        public PRE2(BinaryReader br) : base(br)
-        {
+        public PRE2(BinaryReader br, uint version) : base(br)
+		{
             ParticleEmitter2s = new ParticleEmitter2[br.ReadInt32()];
             for (int i = 0; i < ParticleEmitter2s.Length; i++)
                 ParticleEmitter2s[i] = new ParticleEmitter2(br);
@@ -119,7 +119,7 @@ namespace MDXLib.MDX
 
             NodeSize = br.ReadInt32();
             Type = (PARTICLE_EMITTER_TYPE)br.ReadInt32();
-            Speed = br.ReadSingle();
+			Speed = br.ReadSingle();
             Variation = br.ReadSingle();
             Latitude = br.ReadSingle();
             Longitude = br.ReadSingle();
@@ -133,8 +133,10 @@ namespace MDXLib.MDX
             Rows = br.ReadInt32();
             Cols = br.ReadInt32();
             ParticleType = (PARTICLE_TYPE)br.ReadInt32();
+			if (ParticleType > 0 && !Enum.IsDefined(typeof(PARTICLE_TYPE), ParticleType))
+				throw new Exception("Unknown PARTICLE_TYPE");
 
-            TailLength = br.ReadSingle();
+			TailLength = br.ReadSingle();
             MiddleTime = br.ReadSingle();
 
             StartColor = new CVector3(br);

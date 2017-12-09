@@ -12,8 +12,8 @@ namespace MDXLib.MDX
     {
         Camera[] Cameras;
 
-        public CAMS(BinaryReader br) : base(br)
-        {
+        public CAMS(BinaryReader br, uint version) : base(br)
+		{
             Cameras = new Camera[br.ReadInt32()];
             for (int i = 0; i < Cameras.Length; i++)
                 Cameras[i] = new Camera(br);

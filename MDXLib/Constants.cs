@@ -46,10 +46,14 @@ namespace MDXLib
 	public enum MDLGEO
 	{
 		MODEL_GEO_UNSHADED = 0x1,
+		MODEL_GEO_SPHERE_ENV_MAP = 0x2,  // unused
+		MODEL_GEO_WRAPWIDTH = 0x4,       // unused
+		MODEL_GEO_WRAPHEIGHT = 0x8,      // unused
 		MODEL_GEO_TWOSIDED = 0x10,
 		MODEL_GEO_UNFOGGED = 0x20,
 		MODEL_GEO_NO_DEPTH_TEST = 0x40,
 		MODEL_GEO_NO_DEPTH_SET = 0x80,
+		MODEL_GEO_UNKNOWN_1500 = 0x100, // ShaderSkin? waterfalls only
 	}
 
 	public enum PARTICLE_BLEND_MODE

@@ -12,7 +12,7 @@ namespace MDXLib.MDX
 	{
 		Event[] Events;
 
-		public EVTS(BinaryReader br) : base(br)
+		public EVTS(BinaryReader br, uint version) : base(br)
 		{
 			Events = new Event[br.ReadInt32()];
 			for (int i = 0; i < Events.Length; i++)

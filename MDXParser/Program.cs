@@ -17,7 +17,6 @@ namespace MDXParser
 		static void Main(string[] args)
 		{
 			//Tests.BulkParse();
-			//C:\Users\spear\Desktop\1HTrollSpear01.m2
 
 			M2 comparison = new M2();
 			using (var reader = new BinaryReader(new FileStream(@"Files\Boar.m2", FileMode.Open)))

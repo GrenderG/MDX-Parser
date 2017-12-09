@@ -18,6 +18,9 @@ namespace MDXParser
 
         public M2Converter(Model model, M2.Format version)
         {
+			if (model.Version > 1400)
+				throw new Exception($"Invalid version {model.Version}");
+			
             _model = model;
 
             Model = new M2()

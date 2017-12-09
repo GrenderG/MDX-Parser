@@ -12,8 +12,8 @@ namespace MDXLib.MDX
     {
         Helper[] Helpers;
 
-        public HELP(BinaryReader br) : base(br)
-        {
+        public HELP(BinaryReader br, uint version) : base(br)
+		{
             Helpers = new Helper[br.ReadInt32()];
             for (int i = 0; i < Helpers.Length; i++)
                 Helpers[i] = new Helper(br);

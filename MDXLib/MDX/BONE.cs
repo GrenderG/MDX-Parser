@@ -12,8 +12,8 @@ namespace MDXLib.MDX
     {
         private Bone[] Bones;
 
-        public BONE(BinaryReader br) : base(br)
-        {
+        public BONE(BinaryReader br, uint version) : base(br)
+		{
             Bones = new Bone[br.ReadInt32()];
             for (int i = 0; i < Bones.Length; i++)
                 Bones[i] = new Bone(br);

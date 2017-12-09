@@ -10,6 +10,7 @@ namespace MDXLib.MDX
     {
         public string Type;
         public uint Size;
+		protected uint Version;
 
         public BaseChunk(BinaryReader br)
         {

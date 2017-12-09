@@ -12,8 +12,8 @@ namespace MDXLib.MDX
     {
         TextureAnimation[] TextureAnimations;
 
-        public TXAN(BinaryReader br) : base(br)
-        {
+        public TXAN(BinaryReader br, uint version) : base(br)
+		{
             TextureAnimations = new TextureAnimation[br.ReadInt32()];
             for (int i = 0; i < TextureAnimations.Length; i++)
                 TextureAnimations[i] = new TextureAnimation(br);

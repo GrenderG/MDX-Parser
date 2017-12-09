@@ -7,13 +7,11 @@ namespace MDXLib.MDX
 {
     public class VERS : BaseChunk
     {
-        public uint Version;
+        public new uint Version;
 
-        public VERS(BinaryReader br) : base(br)
+        public VERS(BinaryReader br, uint version) : base(br)
         {
             Version = br.ReadUInt32();
-            if (Version != 1300)
-                throw new Exception("Invalid version");
         }
     }
 }

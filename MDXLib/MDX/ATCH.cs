@@ -12,7 +12,7 @@ namespace MDXLib.MDX
         private Attachment[] Attachments;
         public int Padding;
 
-        public ATCH(BinaryReader br) : base(br)
+        public ATCH(BinaryReader br, uint version) : base(br)
         {
             Attachments = new Attachment[br.ReadInt32()];
             Padding = br.ReadInt32(); // ignored by client

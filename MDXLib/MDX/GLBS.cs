@@ -11,8 +11,8 @@ namespace MDXLib.MDX
     {
         int[] Duration;
 
-        public GLBS(BinaryReader br) : base(br)
-        {
+        public GLBS(BinaryReader br, uint version) : base(br)
+		{
             Duration = new int[Size / 4];
             for (int i = 0; i < Duration.Length; i++)
                 Duration[i] = br.ReadInt32();

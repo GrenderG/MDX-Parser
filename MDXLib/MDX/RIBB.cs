@@ -12,8 +12,8 @@ namespace MDXLib.MDX
     {
         RibbonEmitter[] RibbonEmitters;
 
-        public RIBB(BinaryReader br) : base(br)
-        {
+        public RIBB(BinaryReader br, uint version) : base(br)
+		{
             RibbonEmitters = new RibbonEmitter[br.ReadInt32()];
             for (int i = 0; i < RibbonEmitters.Length; i++)
                 RibbonEmitters[i] = new RibbonEmitter(br);

@@ -14,7 +14,7 @@ namespace MDXLib.MDX
 		public uint BlendTime;
 		public byte Flags;
 
-		public MODL(BinaryReader br) : base(br)
+		public MODL(BinaryReader br, uint version) : base(br)
 		{
 			Name = br.ReadCString(Constants.SizeName);
 			AnimationFile = br.ReadCString(Constants.SizeFileName);

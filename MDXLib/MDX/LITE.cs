@@ -12,8 +12,8 @@ namespace MDXLib.MDX
     {
         Light[] Lights;
 
-        public LITE(BinaryReader br) : base(br)
-        {
+        public LITE(BinaryReader br, uint version) : base(br)
+		{
 			Lights = new Light[br.ReadInt32()];
 			for (int i = 0; i < Lights.Length; i++)
 				Lights[i] = new Light(br);

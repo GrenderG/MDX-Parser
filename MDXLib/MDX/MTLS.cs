@@ -12,8 +12,8 @@ namespace MDXLib.MDX
         Material[] Materials;
         public uint Padding;
 
-        public MTLS(BinaryReader br) : base(br)
-        {
+        public MTLS(BinaryReader br, uint version) : base(br)
+		{
             Materials = new Material[br.ReadUInt32()];
             Padding = br.ReadUInt32(); // god knows why this exists, client literally ignores it
 
@@ -69,7 +69,7 @@ namespace MDXLib.MDX
 
             BlendMode = (MDLTEXOP)br.ReadInt32();
             Flags = (MDLGEO)br.ReadUInt32();
-            TextureId = br.ReadUInt32();
+			TextureId = br.ReadUInt32();
             TextureAnimationId = br.ReadInt32();
             CoordId = br.ReadUInt32();
             Alpha = br.ReadSingle();

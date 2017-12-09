@@ -10,63 +10,86 @@ using System.Text;
 
 namespace MDXLib.MDX
 {
-	public class GEOS : BaseChunk, IReadOnlyCollection<Geoset>
+	public class GEOS : BaseChunk, IReadOnlyCollection<IGeoset>
 	{
-		Geoset[] Geosets;
+		IGeoset[] Geosets;
 
-		public GEOS(BinaryReader br) : base(br)
+		public GEOS(BinaryReader br, uint version) : base(br)
 		{
-			Geosets = new Geoset[br.ReadUInt32()];
-			for (int i = 0; i < Geosets.Length; i++)
-				Geosets[i] = new Geoset(br);
+			if (version == 1500)
+			{
+				Geosets = new Geoset1500[] { new Geoset1500(br) };
+			}
+			else
+			{
+				Geosets = new Geoset1300[br.ReadUInt32()];
+				for (int i = 0; i < Geosets.Length; i++)
+					Geosets[i] = new Geoset1300(br);
+			}
 		}
 
 		public int Count => Geosets.Length;
-		public IEnumerator<Geoset> GetEnumerator() => Geosets.AsEnumerable().GetEnumerator();
+		public IEnumerator<IGeoset> GetEnumerator() => Geosets.AsEnumerable().GetEnumerator();
 		IEnumerator IEnumerable.GetEnumerator() => Geosets.AsEnumerable().GetEnumerator();
 	}
 
-	public class Geoset
+	public interface IGeoset
 	{
-		public uint TotalSize;
-		public uint NrOfVertices;
-		public List<CVector3> Vertices = new List<CVector3>();
-		public uint NrOfNormals;
-		public List<CVector3> Normals = new List<CVector3>();
-		public uint NrOfTexCoords;
-		public List<CVector2> TexCoords = new List<CVector2>();
+		uint NrOfVertices { get; set; }
+		List<CVector3> Vertices { get; set; }
+		List<CVector3> Normals { get; set; }
+		List<CVector2> TexCoords { get; set; }
+		uint NrOfFaceVertices { get; set; }
+		List<CVertex> FaceVertices { get; set; }
+		List<uint> BoneIndexes { get; set; }
+		List<uint> BoneWeights { get; set; }
+		uint MaterialId { get; set; }
+		Dictionary<byte, List<CVector3>> GroupedVertices { get; set; }
+		List<byte[]> GetIndicies();
+		C3Vector GetCenter();
+	}
+
+	public class Geoset1300 : IGeoset
+	{
+		public uint TotalSize { get; set; }
+		public uint NrOfVertices { get; set; }
+		public List<CVector3> Vertices { get; set; } = new List<CVector3>();
+		public uint NrOfNormals { get; set; }
+		public List<CVector3> Normals { get; set; } = new List<CVector3>();
+		public uint NrOfTexCoords { get; set; }
+		public List<CVector2> TexCoords { get; set; } = new List<CVector2>();
 
 		//MDLPRIMITIVES
-		public uint NrOfFaceTypeGroups;
-		public List<byte> FaceTypes = new List<byte>();
-		public uint NrOfFaceGroups;
-		public List<uint> FaceGroups = new List<uint>();
-		public uint NrOfFaceVertices;
-		public List<CVertex> FaceVertices = new List<CVertex>();
+		public uint NrOfFaceTypeGroups { get; set; }
+		public List<byte> FaceTypes { get; set; } = new List<byte>();
+		public uint NrOfFaceGroups { get; set; }
+		public List<uint> FaceGroups { get; set; } = new List<uint>();
+		public uint NrOfFaceVertices { get; set; }
+		public List<CVertex> FaceVertices { get; set; } = new List<CVertex>();
 
-		public uint NrOfVertexGroupIndices;
-		public List<byte> VertexGroupIndices = new List<byte>();
-		public uint NrOfMatrixGroups;
-		public List<uint> MatrixGroups = new List<uint>();
-		public uint NrOfMatrixIndexes;
-		public List<uint> MatrixIndexes = new List<uint>();
-		public uint NrOfBoneIndexes;
-		public List<uint> BoneIndexes = new List<uint>();
-		public uint NrOfBoneWeights;
-		public List<uint> BoneWeights = new List<uint>();
+		public uint NrOfVertexGroupIndices { get; set; }
+		public List<byte> VertexGroupIndices { get; set; } = new List<byte>();
+		public uint NrOfMatrixGroups { get; set; }
+		public List<uint> MatrixGroups { get; set; } = new List<uint>();
+		public uint NrOfMatrixIndexes { get; set; }
+		public List<uint> MatrixIndexes { get; set; } = new List<uint>();
+		public uint NrOfBoneIndexes { get; set; }
+		public List<uint> BoneIndexes { get; set; } = new List<uint>();
+		public uint NrOfBoneWeights { get; set; }
+		public List<uint> BoneWeights { get; set; } = new List<uint>();
 
-		public uint MaterialId;
-		public CExtent Bounds;
-		public uint SelectionGroup;
-		public bool Unselectable;
+		public uint MaterialId { get; set; }
+		public CExtent Bounds { get; set; }
+		public uint SelectionGroup { get; set; }
+		public bool Unselectable { get; set; }
 
-		public uint NrOfExtents;
-		public List<CExtent> Extents = new List<CExtent>();
+		public uint NrOfExtents { get; set; }
+		public List<CExtent> Extents { get; set; } = new List<CExtent>();
 
-		public Dictionary<byte, List<CVector3>> GroupedVertices = new Dictionary<byte, List<CVector3>>();
+		public Dictionary<byte, List<CVector3>> GroupedVertices { get; set; } = new Dictionary<byte, List<CVector3>>();
 
 
-		public Geoset(BinaryReader br)
+		public Geoset1300(BinaryReader br)
 		{
 			TotalSize = br.ReadUInt32();
 			long end = TotalSize + br.BaseStream.Position;
@@ -161,7 +184,7 @@ namespace MDXLib.MDX
 			SelectionGroup = br.ReadUInt32();
 			Unselectable = br.ReadUInt32() == 1;
 			Bounds = new CExtent(br);
-			
+
 			//Extents
 			NrOfExtents = br.ReadUInt32();
 			for (int i = 0; i < NrOfExtents; i++)
@@ -209,5 +232,122 @@ namespace MDXLib.MDX
 		}
 
 		public C3Vector GetCenter() => new C3Vector(Vertices.Average(x => x.X), Vertices.Average(x => x.Y), Vertices.Average(x => x.Z));
+	}
+
+	public class Geoset1500 : IGeoset
+	{
+		#region Interface
+		public uint NrOfVertices { get; set; }
+		public List<CVector3> Vertices { get; set; } = new List<CVector3>();
+		public List<CVector3> Normals { get; set; } = new List<CVector3>();
+		public List<CVector2> TexCoords { get; set; } = new List<CVector2>();
+
+		//MDLPRIMITIVES
+		public uint NrOfFaceVertices { get; set; }
+		public List<CVertex> FaceVertices { get; set; } = new List<CVertex>();
+
+		public List<uint> BoneIndexes { get; set; } = new List<uint>();
+		public List<uint> BoneWeights { get; set; } = new List<uint>();
+
+		public uint MaterialId { get; set; }
+
+		public uint NrOfExtents { get; set; }
+		public List<CExtent> Extents { get; set; } = new List<CExtent>();
+		#endregion
+
+		public Geoset1500(BinaryReader br)
+		{
+			var primitivecount = br.ReadInt32();
+
+			// MDLPRIVITIVES v2
+			MDLGEOSECTION[] primitives = new MDLGEOSECTION[primitivecount];
+			for (int i = 0; i < primitivecount; i++)
+				primitives[i] = new MDLGEOSECTION(br);
+
+			for (int i = 0; i < primitivecount; i++)
+			{
+				MDLVERTEX[] vertices = new MDLVERTEX[primitives[i].numVertices];
+				for (int x = 0; x < vertices.Length; x++)
+					vertices[x] = new MDLVERTEX(br);
+
+				int primitiveType = br.ReadInt32();  // 0x3 = Triangle, 
+				int pad = br.ReadInt32();
+
+				int numPrimitiveIndices = br.ReadInt32(); // matches MDLGEOSECTION
+				int maxPrimitiveVertex = br.ReadInt32();
+				CVertex[] primitiveVertices = Enumerable.Range(0, numPrimitiveIndices / 3).Select(x => new CVertex(br)).ToArray();
+
+				if (numPrimitiveIndices % 8 != 0)
+				{
+					ushort[] padding = Enumerable.Range(0, 8 - (numPrimitiveIndices % 8)).Select(x => br.ReadUInt16()).ToArray();
+					if (!padding.All(x => x == 0))
+						throw new Exception("not padding...");
+				}
+			}
+		}
+
+		internal class MDLGEOSECTION
+		{
+			public int numVertices;
+			public int numPrimitiveTypes;
+			public int numPrimitiveIndices;
+
+			public int MaterialId;
+			public int SelectionGroup;
+			public int GeosetIndex;
+			public int Flags;
+			public CVector3 CenterBounds;
+			public float BoundsRadius;
+
+			public int Unknown1;
+			public int Unknown2;
+
+			public MDLGEOSECTION(BinaryReader br)
+			{
+				MaterialId = br.ReadInt32();
+				CenterBounds = new CVector3(br);
+				BoundsRadius = br.ReadSingle();
+				SelectionGroup = br.ReadInt32();
+				GeosetIndex = br.ReadInt32();
+				Flags = br.ReadInt32(); // &1: Unselectable, &2: unused, &4 ?, &8: ?, &0x10: Project2D, &0x20: ?  (SHADERSKIN, NOFALLBACK, BATCHES unused MDLTOKENS)
+
+				br.AssertTag("PVTX");
+				numVertices = br.ReadInt32(); // count of M2Vertex
+				br.AssertTag("PTYP");
+				numPrimitiveTypes = br.ReadInt32();
+				br.AssertTag("PVTX");
+				numPrimitiveIndices = br.ReadInt32();
+
+				Unknown1 = br.ReadInt32();
+				Unknown2 = br.ReadInt32();
+			}
+		}
+
+		internal class MDLVERTEX
+		{
+			public CVector3 Position;
+			public byte[] BoneWeights;
+			public byte[] BoneIndices;
+			public CVector3 Normal;
+			public CVector2[] TexCoords;
+
+			public MDLVERTEX(BinaryReader br)
+			{
+				Position = new CVector3(br);
+				BoneWeights = br.ReadBytes(4);
+				BoneIndices = br.ReadBytes(4);
+				Normal = new CVector3(br);
+				TexCoords = Enumerable.Range(0, 2).Select(x => new CVector2(br)).ToArray();
+			}
+		}
+
+
+		#region UNUSED
+		public Dictionary<byte, List<CVector3>> GroupedVertices { get; set; } = new Dictionary<byte, List<CVector3>>();
+
+		public List<byte[]> GetIndicies() => throw new NotImplementedException();
+
+		public C3Vector GetCenter() => throw new NotImplementedException();
+		#endregion
 	}
 }

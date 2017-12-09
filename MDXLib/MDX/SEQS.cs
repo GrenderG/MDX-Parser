@@ -12,8 +12,8 @@ namespace MDXLib.MDX
     {
         Sequence[] Sequences;
 
-        public SEQS(BinaryReader br) : base(br)
-        {
+        public SEQS(BinaryReader br, uint version) : base(br)
+		{
             Sequences = new Sequence[br.ReadUInt32()];
             for (int i = 0; i < Sequences.Length; i++)
                 Sequences[i] = new Sequence(br);
@@ -43,7 +43,8 @@ namespace MDXLib.MDX
             MinTime = br.ReadInt32();
             MaxTime = br.ReadInt32();
             MoveSpeed = br.ReadSingle();
-			NonLooping = br.ReadUInt32() == 1;
+			
+			NonLooping = br.ReadInt32() == 1;
             Bounds = new CExtent(br);
             Frequency = br.ReadSingle();
             MinReplay = br.ReadInt32();

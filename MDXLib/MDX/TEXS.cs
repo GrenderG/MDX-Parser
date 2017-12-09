@@ -11,8 +11,8 @@ namespace MDXLib.MDX
     {
         Texture[] Textures;
 
-        public TEXS(BinaryReader br) : base(br)
-        {
+        public TEXS(BinaryReader br, uint version) : base(br)
+		{
             Textures = new Texture[Size / 268];
             for (int i = 0; i < Textures.Length; i++)
                 Textures[i] = new Texture(br);

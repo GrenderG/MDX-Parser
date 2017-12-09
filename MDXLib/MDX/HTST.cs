@@ -12,8 +12,8 @@ namespace MDXLib.MDX
     {
         HitTestShape[] HitTestShapes;
 
-        public HTST(BinaryReader br) : base(br)
-        {
+        public HTST(BinaryReader br, uint version) : base(br)
+		{
             HitTestShapes = new HitTestShape[br.ReadInt32()];
             for (int i = 0; i < HitTestShapes.Length; i++)
                 HitTestShapes[i] = new HitTestShape(br);
@@ -47,7 +47,6 @@ namespace MDXLib.MDX
 			LoadTracks(br);
 
             Type = (GEOM_SHAPE)br.ReadByte();
-
             switch (Type)
             {
                 case GEOM_SHAPE.SHAPE_BOX:

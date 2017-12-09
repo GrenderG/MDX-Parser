@@ -15,8 +15,8 @@ namespace MDXLib.MDX
         public uint NrOfFacetNormals;
         public List<CVector3> FacetNormals = new List<CVector3>();
 
-        public CLID(BinaryReader br) : base(br)
-        {
+        public CLID(BinaryReader br, uint version) : base(br)
+		{
             br.AssertTag("VRTX");
             NrOfVertices = br.ReadUInt32();
             for (int i = 0; i < NrOfVertices; i++)
